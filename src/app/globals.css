@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: regular;
+    src: local(regular), url(../../public/fonts/BYekan/BYekan+\ Bold.ttf);
+    font-display: swap;
+  }
+  @font-face {
+    font-family: light;
+    src: local(light), url(../../public/fonts/BYekan/BYekan+.ttf);
+    font-display: swap;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all linear 0.1s;
+  }
+  html {
+    font-size: 10px;
+    scroll-behavior: smooth;
+    font-family: regular;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .landingImage{
+    background-image: url("../../public/images/bg.png");
+  }
+  .btn {
+    @apply text-2xl font-bold px-10 py-3 rounded-xl shadow-md active:scale-95 cursor-pointer;
+  }
+  .input {
+    @apply h-14 rounded-lg text-black/70 text-2xl px-4 outline-none focus:outline-none;
+  }
+  .tsh {
+    text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.3),
+      0px 3px 5px rgba(0, 0, 0, 0.1);
+  }
+  .footer-shadow {
+    box-shadow: 0px -10px 10px 0px #d8e27c;
+  }
+  .swal-text {
+    text-align: center !important;
+  }
+
+
+  /* ultra element start */
+  .containerLoadingBox {
+    font-weight: 100%;
+    height: 100%;
+    background: #00000000;
+  }
+  @keyframes shimmer {
+    0% {
+      background-position: -300% 100%;
+    }
+    100% {
+      background-position: 300% 0%;
+    }
+  }
+  .loadingBox {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background: #f6f7f8;
+    background-image: linear-gradient(
+      to right,
+      #ffffff 0%,
+      #e3e3e3 25%,
+      #cacaca 50%,
+      #e3e3e3 75%,
+      #ffffff 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+  }
+  /* ultra element finish */
+
+  
+}
