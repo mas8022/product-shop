@@ -5,7 +5,6 @@ import { Me } from "../../../../../utils/me.js";
 import orderModel from "../../../../../models/orderModel.js";
 import { createPayment } from "../../../../../utils/zarinpal.js";
 import { NextResponse } from "next/server";
-import { redirect } from "next/navigation";
 
 export async function POST(req) {
   try {

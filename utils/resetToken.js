@@ -1,4 +1,4 @@
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { verifyRefreshToken, generateToken, verifyToken } from "./authTools";
 import userModel from "../models/user.js";
 import connectToDb from "../configs/db.ts";
@@ -42,15 +42,16 @@ export default async function ResetToken() {
 
     const newToken = generateToken({ email }, process.env.privateKey);
 
-    const refererUrl = (await headers()).get("referer") || "/";
-
-    const response = NextResponse.redirect(refererUrl);
-    response.cookies.set("token", newToken, {
-      httpOnly: true,
-      path: "/",
+    await fetch("http://localhost:3000/api/set-cookies", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newToken }),
     });
-    return response;
+
+    return userRoll ? userRoll : false;
   } catch (error) {
-    return NextResponse.redirect("/login");
+    throw new Error(error);
   }
 }

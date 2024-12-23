@@ -55,32 +55,5 @@ async function MeId() {
   }
 }
 
-async function MeRole() {
-  try {
 
-    await ResetToken();
-
-    const token = (await cookies()).get("token")?.value;
-    const tokenPayload = verifyToken(token, process.env.privateKey);
-    if (!tokenPayload) {
-      return false;
-    }
-    const userData = await userModel.findOne(
-      {
-        email: tokenPayload?.email,
-      },
-      "roll"
-    );
-    const userRole = userData.roll;
-
-    if (userRole) {
-      return userRole;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    throw new Error(error);
-  }
-}
-
-export { Me, MeId, MeRole };
+export { Me, MeId };

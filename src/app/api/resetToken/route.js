@@ -1,10 +1,10 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
-import { MeRole } from "../../../../utils/me";
+import ResetToken from "../../../../utils/resetToken";
 
 export async function GET() {
   try {
-    const userRoll = await MeRole();
+    const userRoll = await ResetToken();
 
     revalidatePath("/", "layout");
 

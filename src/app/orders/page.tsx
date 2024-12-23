@@ -1,34 +1,13 @@
-"use client";
-
+import OrdersContainer from "@/components/templates/OrdersContainer";
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
-import OrderBox from "@/components/modules/OrderBox";
-
-const Orders = () => {
+import connectToDb from "../../../configs/db";
+import orderModel from "../../../models/orderModel";
+const Orders = async () => {
+  await connectToDb();
+  const orders = await orderModel.find({ status: "send" }, "createdAt name");
   return (
     <div className="w-full flex justify-center items-center pt-56 pb-44 px-8 md:px-40">
-      <Swiper
-        spaceBetween={20}
-        slidesPerView={1}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
-        className="!pb-14"
-      >
-        <SwiperSlide>
-          <OrderBox />
-        </SwiperSlide>
-        <SwiperSlide>
-          <OrderBox />
-        </SwiperSlide>
-        <SwiperSlide>
-          <OrderBox />
-        </SwiperSlide>
-      </Swiper>
+      <OrdersContainer data={JSON.parse(JSON.stringify(orders))} />
     </div>
   );
 };

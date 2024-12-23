@@ -4,14 +4,13 @@ import CmsNavbar from "@/components/templates/CmsNavbar";
 import CmsScroller from "@/components/templates/cmsScroller";
 import ResetToken from "../../../utils/resetToken";
 import { redirect } from "next/navigation";
-import { MeRole } from "../../../utils/me";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout = async ({ children }: LayoutProps): Promise<JSX.Element> => {
-  const userRoll = await MeRole();
+  const userRoll = await ResetToken();
   if (!userRoll || userRoll !== "ADMIN") {
     return redirect("/login");
   }
