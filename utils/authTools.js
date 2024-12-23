@@ -5,7 +5,7 @@ import { sign, verify } from "jsonwebtoken";
 
 function generateToken(data, processEnvKey) {
   const token = sign(data, processEnvKey, {
-    expiresIn: "60s",
+    expiresIn: "10s",
   });
   return token;
 }

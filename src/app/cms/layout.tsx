@@ -2,21 +2,15 @@ import React, { ReactNode } from "react";
 import CmsSideBar from "@/components/templates/CmsSideBar";
 import CmsNavbar from "@/components/templates/CmsNavbar";
 import CmsScroller from "@/components/templates/cmsScroller";
-import ResetToken from "../../../utils/resetToken";
-import { redirect } from "next/navigation";
+import CmsLayoutProvider from "../../components/templates/CmsLayoutProvider";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout = async ({ children }: LayoutProps): Promise<JSX.Element> => {
-  const userRoll = await ResetToken();
-  if (!userRoll || userRoll !== "ADMIN") {
-    return redirect("/login");
-  }
-
   return (
-    <>
+    <CmsLayoutProvider>
       <div className="hidden-scrollbar w-full h-screen fixed top-0 left-0 overflow-y-scroll bg-first z-[2000] flex">
         <CmsSideBar />
         <div className="hidden-scrollbar sm:w-5/6 w-full h-screen overflow-y-scroll relative">
@@ -25,7 +19,7 @@ const Layout = async ({ children }: LayoutProps): Promise<JSX.Element> => {
         </div>
         <CmsScroller />
       </div>
-    </>
+    </CmsLayoutProvider>
   );
 };
 

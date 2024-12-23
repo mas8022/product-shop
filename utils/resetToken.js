@@ -42,12 +42,9 @@ export default async function ResetToken() {
 
     const newToken = generateToken({ email }, process.env.privateKey);
 
-    await fetch("http://localhost:3000/api/set-cookies", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ newToken }),
+    (await cookies()).set("token", newToken, {
+      httpOnly: true,
+      path: "/",
     });
 
     return userRoll ? userRoll : false;

@@ -6,7 +6,7 @@ import ResetToken from "./resetToken";
 
 async function Me() {
   connectToDb();
-  await ResetToken();
+  // await ResetToken();
   const token = (await cookies()).get("token")?.value;
   const tokenPayload = verifyToken(token, process.env.privateKey);
 
@@ -27,7 +27,7 @@ async function Me() {
 async function MeId() {
   try {
     connectToDb();
-    await ResetToken();
+    // await ResetToken();
     const token = (await cookies()).get("token")?.value;
     const tokenPayload = verifyToken(token, process.env.privateKey);
     if (!tokenPayload) {
