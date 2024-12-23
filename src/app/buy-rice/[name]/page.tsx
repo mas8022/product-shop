@@ -15,7 +15,7 @@ const page = async ({ params }: { params: { name: string } }) => {
   const product = await productModel.findOne({ name: name.trim() });
 
   const meData = await Me();
-  const myLocation = meData.location || null;
+  const myLocation = meData?.location || null;
 
   const schemaData = {
     "@context": "https://schema.org",

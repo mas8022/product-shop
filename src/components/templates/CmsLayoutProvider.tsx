@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState, ReactNode } from "react";
+import AvailabilityAlert from "../modules/AvailabilityAlert";
 
 interface CmsLayoutProviderProps {
   children: ReactNode;
@@ -13,16 +14,22 @@ const CmsLayoutProvider: React.FC<CmsLayoutProviderProps> = ({ children }) => {
   useEffect(() => {
     fetch("/api/resetToken")
       .then((res) => res.json())
-      .then(async (result) => {
+      .then((result) => {
         if (!result.roll || result.roll === "USER") {
-          await router.replace("/login");
+          router.replace("/login");
         } else {
           setPending(true);
         }
       });
   }, []);
 
-  return pending ? children : null;
+  return pending ? (
+    children
+  ) : (
+    <div className="w-full h-screen center">
+      <AvailabilityAlert text="در حال بارگذاری..." />
+    </div>
+  );
 };
 
 export default CmsLayoutProvider;

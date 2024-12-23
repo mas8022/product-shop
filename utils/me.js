@@ -2,7 +2,6 @@ import { cookies } from "next/headers";
 import userModel from "../models/user";
 import connectToDb from "../configs/db";
 import { verifyToken } from "./authTools";
-import ResetToken from "./resetToken";
 
 async function Me() {
   connectToDb();
