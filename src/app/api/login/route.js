@@ -3,6 +3,7 @@ import userModel from "../../../../models/user.js";
 import connectToDb from "../../../../configs/db.ts";
 import {
   generateRefreshToken,
+  generateAccessSimpleToken,
   generateToken,
   verifyPassword,
 } from "../../../../utils/authTools.js";
@@ -38,6 +39,7 @@ export async function POST(req) {
     );
 
     const newAccessToken = generateToken({ email }, process.env.privateKey);
+    const accessSimpleKey = generateAccessSimpleToken(email);
 
     (await cookies()).set("token", newAccessToken, {
       httpOnly: true,
@@ -49,6 +51,10 @@ export async function POST(req) {
       path: "/",
       expires: new Date().getTime() + 15 * 24 * 60 * 60 * 1000,
     });
+    (await cookies()).set("accessSimpleToken", accessSimpleKey, {
+      httpOnly: true,
+      path: "/",
+    });
 
     revalidatePath("/", "layout");
 
@@ -57,6 +63,9 @@ export async function POST(req) {
       status: 200,
     });
   } catch (error) {
-    return NextResponse.json({ message: "اینترنت خود را چک کنید", status: 500 });
+    return NextResponse.json({
+      message: "اینترنت خود را چک کنید",
+      status: 500,
+    });
   }
 }

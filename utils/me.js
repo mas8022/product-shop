@@ -1,19 +1,17 @@
 import { cookies } from "next/headers";
 import userModel from "../models/user";
 import connectToDb from "../configs/db";
-import { verifyToken } from "./authTools";
+import { verifyAccessSimpleToken } from "./authTools";
 
 async function Me() {
-  connectToDb();
-  // await ResetToken();
-  const token = (await cookies()).get("token")?.value;
-  const tokenPayload = verifyToken(token, process.env.privateKey);
+  await connectToDb();
+  const simpleToken = (await cookies()).get("accessSimpleToken")?.value;
+
+  const userEmail = verifyAccessSimpleToken(simpleToken);
 
   const user = await userModel.findOne(
-    {
-      $or: [{ email: tokenPayload?.userEmail }, { email: tokenPayload?.email }],
-    },
-    "-__v"
+    { email: userEmail },
+    "fullName email phone location roll"
   );
 
   if (user) {
@@ -23,29 +21,18 @@ async function Me() {
   }
 }
 
-async function MeId() {
+async function MeEmail() {
   try {
     connectToDb();
-    // await ResetToken();
-    const token = (await cookies()).get("token")?.value;
-    const tokenPayload = verifyToken(token, process.env.privateKey);
-    if (!tokenPayload) {
+    const simpleToken = (await cookies()).get("accessSimpleToken")?.value;
+    const userEmail = verifyAccessSimpleToken(simpleToken);
+
+    if (!userEmail) {
       return false;
     }
 
-    const userIdObject = await userModel.findOne(
-      {
-        $or: [
-          { email: tokenPayload?.userEmail },
-          { email: tokenPayload?.email },
-        ],
-      },
-      "_id"
-    );
-    const userId = userIdObject._id;
-
-    if (userId) {
-      return userId;
+    if (userEmail) {
+      return userEmail;
     } else {
       return false;
     }
@@ -54,5 +41,4 @@ async function MeId() {
   }
 }
 
-
-export { Me, MeId };
+export { Me, MeEmail };

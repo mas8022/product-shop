@@ -15,7 +15,7 @@ export async function POST(req) {
     const meData = await Me();
 
     await userModel.findOneAndUpdate(
-      { _id: meData._id },
+      { email: meData.email },
       {
         $set: {
           location: {

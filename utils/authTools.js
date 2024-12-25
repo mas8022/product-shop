@@ -3,9 +3,23 @@ import toast from "react-hot-toast";
 import swal from "sweetalert";
 import { sign, verify } from "jsonwebtoken";
 
+function generateAccessSimpleToken(data) {
+  const token = sign(data, process.env.accessSimpleKey);
+  return token;
+}
+
+function verifyAccessSimpleToken(token) {
+  try {
+    const validationToken = verify(token, process.env.accessSimpleKey);
+    return validationToken;
+  } catch (error) {
+    return false;
+  }
+}
+
 function generateToken(data, processEnvKey) {
   const token = sign(data, processEnvKey, {
-    expiresIn: "10s",
+    expiresIn: "60s",
   });
   return token;
 }
@@ -74,6 +88,8 @@ function logoutHandler() {
 }
 
 export {
+  generateAccessSimpleToken,
+  verifyAccessSimpleToken,
   generateToken,
   generateRefreshToken,
   hashPassword,

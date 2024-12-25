@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 export async function GET() {
   try {
     const me = await Me();
+    
     revalidatePath("/", "layout");
 
     if (me) {

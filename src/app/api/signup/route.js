@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import userModel from "../../../../models/user.js";
 import {
   generateRefreshToken,
+  generateAccessSimpleToken,
   generateToken,
   hashPassword,
 } from "../../../../utils/authTools.js";
@@ -58,6 +59,8 @@ export async function POST(req) {
       process.env.refreshPrivateKey
     );
 
+    const accessSimpleKey = generateAccessSimpleToken(email);
+
     const admin = await userModel.findOne({ roll: "ADMIN" }, "_id");
 
     await userModel.create({
@@ -79,6 +82,10 @@ export async function POST(req) {
       path: "/",
       expires: new Date().getTime() + 15 * 24 * 60 * 60 * 1000,
     });
+    (await cookies()).set("accessSimpleToken", accessSimpleKey, {
+      httpOnly: true,
+      path: "/",
+    });
 
     revalidatePath("/", "layout");
 
@@ -87,7 +94,9 @@ export async function POST(req) {
       status: 201,
     });
   } catch (error) {
-    
-    return NextResponse.json({ message: "اینترنت خود را چک کنید", status: 500 });
+    return NextResponse.json({
+      message: "اینترنت خود را چک کنید",
+      status: 500,
+    });
   }
 }

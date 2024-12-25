@@ -6,6 +6,7 @@ export async function POST() {
   try {
     (await cookies()).delete("token");
     (await cookies()).delete("refresh-token");
+    (await cookies()).delete("accessSimpleToken");
 
     revalidatePath('/', "layout")
 

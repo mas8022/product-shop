@@ -1,24 +1,27 @@
 import { revalidatePath } from "next/cache";
 import disLikeModel from "../../../../../../models/disLike";
-import { MeId } from "../../../../../../utils/me";
 import { NextResponse } from "next/server";
-
+import userModel from "../../../../../../models/user";
+import { MeEmail } from "../../../../../../utils/me";
 export async function POST(req, { params }) {
   try {
     const { id } = await params;
 
-    const meId = await MeId();
+    const meEmail = await MeEmail();
 
-    if (!meId) {
+
+    if (!meEmail) {
       return NextResponse.json({
         message: "ابتدا در سایت ثبت نام کنید",
         status: 400,
       });
     }
 
+    const userData = await userModel.findOne({ email: meEmail }, "_id");
+
     const likeBefore = await disLikeModel.findOne(
       {
-        userDisLiked: meId,
+        userDisLiked: userData._id,
         siteImprovementComment: id,
       },
       "_id"
@@ -29,7 +32,7 @@ export async function POST(req, { params }) {
     }
 
     await disLikeModel.create({
-      userDisLiked: meId,
+      userDisLiked: userData._id,
       siteImprovementComment: id,
     });
 
