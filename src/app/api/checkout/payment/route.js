@@ -1,21 +1,22 @@
 import connectToDb from "../../../../../configs/db.ts";
 import productModel from "../../../../../models/product.js";
 import userModel from "../../../../../models/user.js";
-import { Me } from "../../../../../utils/me.js";
+import { Me, MeEmail } from "../../../../../utils/me.js";
 import orderModel from "../../../../../models/orderModel.js";
 import { createPayment } from "../../../../../utils/zarinpal.js";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
+    
     const { province, city, postalCode, fullAddress, name } = await req.json();
 
     await connectToDb();
 
-    const meData = await Me();
+    const userEmail = await MeEmail();
 
-    await userModel.findOneAndUpdate(
-      { email: meData.email },
+    const user = await userModel.findOneAndUpdate(
+      { email: userEmail },
       {
         $set: {
           location: {
@@ -25,8 +26,11 @@ export async function POST(req) {
             fullAddress,
           },
         },
-      }
+      },
+      { new: true }
     );
+
+
 
     const updatedProduct = await productModel.findOneAndUpdate(
       {
@@ -37,6 +41,8 @@ export async function POST(req) {
       { new: true }
     );
 
+
+
     if (!updatedProduct) {
       return NextResponse.json({
         message: "موجودی کالا در انبار کافی نیست",
@@ -44,11 +50,15 @@ export async function POST(req) {
       });
     }
 
+
+
     const product = await productModel.findOne({ name: name.trim() }, "price");
     const price = product.price;
 
+
+
     const order = new orderModel({
-      user: meData._id,
+      user: user._id,
       province,
       city,
       postalCode,
@@ -58,11 +68,15 @@ export async function POST(req) {
       status: "paying",
     });
 
+
+
     const { success, authority, paymentUrl } = await createPayment({
       amount: price,
       description: `پرداخت برای سفارش شماره ${order._id}`,
-      mobile: meData.phone,
+      mobile: user.phone,
     });
+
+
 
     if (!success) {
       await productModel.findOneAndUpdate({ name }, { $inc: { count: 1 } });
@@ -75,12 +89,20 @@ export async function POST(req) {
       });
     }
 
+
+
     order.authority = authority;
 
     await order.save();
 
-    return NextNextResponse.json({ paymentUrl });
+    console.log("mas", user);
+
+
+    return NextResponse.json({ paymentUrl });
   } catch (error) {
-    return NextResponse.json({ message: "اینترنت خود را چک کنید", status: 500 });
+    return NextResponse.json({
+      message: "اینترنت خود را چک کنید",
+      status: 500,
+    });
   }
 }

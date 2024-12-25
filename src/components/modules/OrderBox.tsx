@@ -5,10 +5,12 @@ import React from "react";
 const OrderBox = ({
   data,
 }: {
-  data: { _id: string | ObjectId; name: string; createAt: string };
+  data: { _id: string | ObjectId; name: string; createdAt: string };
 }) => {
+  console.log("data: ", data);
+  
   const maxTimeSendProduct = 4;
-  const createdAtDate = new Date(data.createAt);
+  const createdAtDate = new Date(data.createdAt);
   const currentDate = new Date();
   const differenceInMs = currentDate.getTime() - createdAtDate.getTime();
   const differenceInDays = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
