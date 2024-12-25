@@ -27,7 +27,7 @@ const OrdersContainer = ({ data }: { data: Order[] }) => {
     >
       {data.map((item) => (
         <SwiperSlide key={item._id.toString()}>
-          <OrderBox data={item} />
+          <OrderBox data={JSON.parse(JSON.stringify(item))} />
         </SwiperSlide>
       ))}
     </Swiper>

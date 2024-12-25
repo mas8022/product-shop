@@ -42,6 +42,7 @@ export async function POST(req) {
     (await cookies()).set("accessSimpleToken", accessSimpleKey, {
       httpOnly: true,
       path: "/",
+      expires: new Date().getTime() + 5 * 365 * 24 * 60 * 60 * 1000,
     });
 
     return NextResponse.json({

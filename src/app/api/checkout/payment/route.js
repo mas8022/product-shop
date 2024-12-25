@@ -95,9 +95,6 @@ export async function POST(req) {
 
     await order.save();
 
-    console.log("mas", user);
-
-
     return NextResponse.json({ paymentUrl });
   } catch (error) {
     return NextResponse.json({

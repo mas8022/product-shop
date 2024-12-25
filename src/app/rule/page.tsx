@@ -3,9 +3,9 @@ import React from "react";
 import Title from "@/components/modules/Title";
 import Hr from "@/components/modules/Hr";
 
-const Rule = () => {
+const page = () => {
   return (
-    <div className="w-full flex flex-col gap-20 pt-56 pb-24 px-8 md:px-40 ">
+    <div className="w-full flex flex-col gap-20 pt-56 pb-24 px-8 md:px-40">
       <div className="flex flex-col">
         <Title title="قوانین و مقررات استفاده از سایت برنجسار" />
         <p className="text-[1.6rem] font-light">
@@ -32,14 +32,18 @@ const Rule = () => {
           خواهد بود.
         </p>
       </div>
+
       <div className="flex flex-col">
         <Title title="3. سیاست‌های ارسال و تحویل:" />
         <p className="text-[1.6rem] font-light">
           تمام سفارشات پس از تکمیل خرید در سایت، در کوتاه‌ترین زمان ممکن ارسال
           می‌شوند. زمان دقیق ارسال و تحویل سفارش بستگی به محل سکونت شما دارد.
-          هزینه‌های ارسال در هنگام ثبت سفارش محاسبه خواهد شد.
+        </p>
+        <p className="text-[1.6rem] font-light mt-4">
+          <strong>توجه:</strong> هزینه ارسال بر عهده کاربر بوده و ارسال به سراسر نقاط ایران امکان‌پذیر است.
         </p>
       </div>
+
       <div className="flex flex-col">
         <Title title="4. شرایط خرید و پرداخت:" />
         <p className="text-[1.6rem] font-light">
@@ -48,6 +52,7 @@ const Rule = () => {
           وضعیت سفارش خود را پیگیری نماید.
         </p>
       </div>
+
       <div className="flex flex-col">
         <Title title="5. نقد و بررسی:" />
         <p className="text-[1.6rem] font-light">
@@ -56,14 +61,7 @@ const Rule = () => {
           استفاده قرار خواهد گرفت.
         </p>
       </div>
-      <div className="flex flex-col">
-        <Title title="6. سیاست‌های بازگشت کالا:" />
-        <p className="text-[1.6rem] font-light">
-          در صورتی که محصول خریداری شده دچار مشکل فنی یا نقص باشد، کاربران
-          می‌توانند درخواست بازگشت کالا را به سایت ارسال کنند. این درخواست باید
-          حداکثر 7 روز پس از دریافت محصول ارسال شود.
-        </p>
-      </div>
+
       <div className="flex flex-col">
         <Title title="7. حریم خصوصی و امنیت:" />
         <p className="text-[1.6rem] font-light">
@@ -72,6 +70,7 @@ const Rule = () => {
           تهدیدات امنیتی محافظت می‌نماییم.
         </p>
       </div>
+
       <div className="flex flex-col">
         <Title title="8. تغییرات قوانین:" />
         <p className="text-[1.6rem] font-light">
@@ -85,4 +84,4 @@ const Rule = () => {
   );
 };
 
-export default Rule;
+export default page;

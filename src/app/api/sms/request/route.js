@@ -14,7 +14,7 @@ export async function POST(req) {
 
     const { phone } = await req.json();
     if (!iranianPhoneRegex.test(phone)) {
-      return NextResponse.redirect("http://localhost:3000/rule");
+      return NextResponse.redirect(`${process.env.HOST_NAME}/rule`);
     }
 
     request.post(

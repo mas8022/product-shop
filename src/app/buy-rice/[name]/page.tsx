@@ -1,10 +1,8 @@
 import React from "react";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import productModel from "../../../../models/product.js";
 import { Me } from "../../../../utils/me";
-import Title from "@/components/modules/Title";
 import BuyForm from "@/components/templates/BuyForm";
 import PermissionAlert from "@/components/modules/PermissionAlert";
 
@@ -13,7 +11,7 @@ const page = async ({ params }: { params: { name: string } }) => {
   name = decodeURIComponent(name);
 
   const product = await productModel.findOne({ name: name.trim() });
-
+  
   const meData = await Me();
   const myLocation = meData?.location || null;
 
@@ -50,56 +48,14 @@ const page = async ({ params }: { params: { name: string } }) => {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
           />
         </Head>
+        
 
-        <div className="w-full sm:h-screen h-auto md:px-40 px-8 sm:pt-56 pt-40 pb-24 flex justify-between gap-24">
-          <div className="w-full flex flex-col gap-6">
-            <Title title="اطلاعات درخواست سفارش" />
-            <p className="xxd:hidden text-center font-bold text-emerald-900/70 text-3xl">
-              {name}
-            </p>
-            <BuyForm
-              myLocation={JSON.parse(JSON.stringify(myLocation))}
-              name={product.name}
-            />
-          </div>
-
-          <div className="xxd:flex hidden !w-[50rem] p-12 rounded-3xl flex-col items-center justify-between bg-second/20 shadow-md gap-4">
-            <p className="font-light text-4xl text-emerald-600">
-              {product.name}
-            </p>
-            <Image
-              src={product.image}
-              width={400}
-              height={500}
-              alt={`تصویر ${product.name}`}
-              className="rounded-3xl"
-            />
-
-            <div className="w-full h-28 text-emerald-600/90 text-2xl center flex-col gap-4 font-light p-4">
-              <div className="w-full flex justify-between items-end">
-                <span>هزینه محصول:</span>
-                <p className="font-light text-3xl text-emerald-600">
-                  {product.price.toLocaleString("fa-IR")}
-                  <span className="opacity-0">.</span>ریال
-                </p>
-              </div>
-              <div className="w-full flex justify-between items-end border-b-2 border-b-second pb-3">
-                <span>هزینه ارسال:</span>
-                <p className="font-light text-3xl text-emerald-600">
-                  {(870000).toLocaleString("fa-IR")}
-                  <span className="opacity-0">.</span>ریال
-                </p>
-              </div>
-              <div className="w-full flex justify-between items-end text-3xl">
-                <span>هزینه کل:</span>
-                <p className="font-light text-4xl text-emerald-600 flex">
-                  {(product.price + 870000).toLocaleString("fa-IR")}
-                  <span className="opacity-0">.</span>ریال
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <BuyForm
+          myLocation={JSON.parse(JSON.stringify(myLocation))}
+          name={product.name}
+          price={product.price}
+          image={product.image}
+        />
       </>
     ) : (
       <PermissionAlert />

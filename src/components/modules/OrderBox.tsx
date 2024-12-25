@@ -7,8 +7,6 @@ const OrderBox = ({
 }: {
   data: { _id: string | ObjectId; name: string; createdAt: string };
 }) => {
-  console.log("data: ", data);
-  
   const maxTimeSendProduct = 4;
   const createdAtDate = new Date(data.createdAt);
   const currentDate = new Date();

@@ -11,7 +11,7 @@ const createPayment = async ({ amount, description, mobile }) => {
         merchant_id: process.env.ZARINPAL_MERCHANTID,
         amount,
         description,
-        callback_url: "http://localhost:3000/api/checkout/verify", // callback url address
+        callback_url: `${process.env.HOST_NAME}/api/checkout/verify`,
         metadata: {
           mobile: String(mobile),
         },

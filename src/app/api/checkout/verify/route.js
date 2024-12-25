@@ -12,7 +12,9 @@ export async function GET(req) {
     const checkout = await orderModel.findOne({ authority });
 
     if (!checkout) {
-      return NextResponse.redirect(`http://localhost:3000/paymentResult?status=404&receipt=false}`);
+      return NextResponse.redirect(
+        `${process.env.HOST_NAME}/paymentResult?status=404&receipt=false}`
+      );
     }
 
     const { success, refId } = await verifyPayment({
@@ -21,7 +23,9 @@ export async function GET(req) {
     });
 
     if (!success) {
-      return NextResponse.redirect(`http://localhost:3000/paymentResult?status=403&receipt=false`);
+      return NextResponse.redirect(
+        `${process.env.HOST_NAME}/paymentResult?status=403&receipt=false`
+      );
     }
 
     checkout.status = "success";
@@ -29,8 +33,12 @@ export async function GET(req) {
 
     await checkout.save();
 
-    return NextResponse.redirect(`http://localhost:3000/paymentResult?status=201&receipt=${refId}`);
+    return NextResponse.redirect(
+      `${process.env.HOST_NAME}/paymentResult?status=201&receipt=${refId}`
+    );
   } catch (error) {
-    return NextResponse.redirect(`http://localhost:3000/paymentResult?status=500&receipt=false`);
+    return NextResponse.redirect(
+      `${process.env.HOST_NAME}/paymentResult?status=500&receipt=false`
+    );
   }
 }
