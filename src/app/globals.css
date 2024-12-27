@@ -4,11 +4,6 @@
 
 @layer base {
   @font-face {
-    font-family: regular;
-    src: local(regular), url(../../public/fonts/BYekan/BYekan+\ Bold.ttf);
-    font-display: swap;
-  }
-  @font-face {
     font-family: light;
     src: local(light), url(../../public/fonts/BYekan/BYekan+.ttf);
     font-display: swap;
@@ -23,7 +18,7 @@
   html {
     font-size: 10px;
     scroll-behavior: smooth;
-    font-family: regular;
+    font-family: BYekan;
   }
   ::-webkit-scrollbar {
     display: none;
@@ -38,7 +33,7 @@
     background-repeat: no-repeat;
     background-position: center;
   }
-  .landingImage{
+  .landingImage {
     background-image: url("../../public/images/bg.png");
   }
   .btn {
@@ -57,7 +52,6 @@
   .swal-text {
     text-align: center !important;
   }
-
 
   /* ultra element start */
   .containerLoadingBox {
@@ -92,6 +86,4 @@
     animation: shimmer 2s infinite linear;
   }
   /* ultra element finish */
-
-  
 }

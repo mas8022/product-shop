@@ -1,7 +1,7 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 
-const MainSearch = ({ cls }) => {
+const MainSearch = ({ cls }: { cls: string }) => {
   return (
     <div
       data-aos="fade-up"

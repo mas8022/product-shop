@@ -30,7 +30,7 @@ export default {
         third: "#D8E27C",
       },
       fontFamily: {
-        medium: "regular",
+        medium: "var(--font-BYekan)",
         light: "light",
       },
     },
