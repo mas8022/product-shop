@@ -6,9 +6,7 @@ async function connectToDb(): Promise<string> {
       return "Already connected to the database.";
     }
 
-    await mongoose.connect(
-      "mongodb://root:rjuiH99HMTZvmA167aDyZ3rg@hotaka.liara.cloud:31145/my-app?authSource=admin&replicaSet=rs0&directConnection=true"
-    );
+    await mongoose.connect("mongodb://localhost:27017/berengsar");
     return "Connected to the database.";
   } catch (error) {
     throw new Error(

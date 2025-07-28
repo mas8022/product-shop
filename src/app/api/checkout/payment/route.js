@@ -1,9 +1,9 @@
 import connectToDb from "../../../../../configs/db.ts";
 import productModel from "../../../../../models/product.js";
 import userModel from "../../../../../models/user.js";
-import { Me, MeEmail } from "../../../../../utils/me.js";
+import { MeEmail } from "../../../../../utils/me.js";
 import orderModel from "../../../../../models/orderModel.js";
-import { createPayment } from "../../../../../utils/zarinpal.js";
+import { createPayment } from "../../../../../utils/zibal.js";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -72,9 +72,10 @@ export async function POST(req) {
 
     const { success, authority, paymentUrl } = await createPayment({
       amount: price,
-      description: `پرداخت برای سفارش شماره ${order._id}`,
       mobile: user.phone,
     });
+
+  
 
 
 

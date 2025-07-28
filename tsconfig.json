@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "utils/Aos.js", "utils/zarinpal.js", "src/app/restorePass/page.tsx", "src/components/templates/RequestOtpForm.tsx", "src/components/templates/VerifyOtpForm.tsx", "src/app/cms/commentsSended/page.tsx", "src/components/modules/CmsCommentSendedCart.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "utils/Aos.js", "utils/zibal.js", "src/app/restorePass/page.tsx", "src/components/templates/RequestOtpForm.tsx", "src/components/templates/VerifyOtpForm.tsx", "src/app/cms/commentsSended/page.tsx", "src/components/modules/CmsCommentSendedCart.tsx"],
   "exclude": ["node_modules"]
 }

@@ -1,6 +1,6 @@
 import connectToDb from "../../../../../configs/db.ts";
 import orderModel from "../../../../../models/orderModel.js";
-import { verifyPayment } from "../../../../../utils/zarinpal.js";
+import { verifyPayment } from "../../../../../utils/zibal.js";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
@@ -18,8 +18,7 @@ export async function GET(req) {
     }
 
     const { success, refId } = await verifyPayment({
-      authority: checkout.authority,
-      amount: checkout.price,
+      trackId: checkout.authority,
     });
 
     if (!success) {

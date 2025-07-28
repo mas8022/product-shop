@@ -13,7 +13,7 @@ const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
 
 export async function POST(req) {
   try {
-    connectToDb();
+    await connectToDb();
     const { fullName, email, password, phone, check } = await req.json();
 
     const userEmail = await userModel.findOne({ email });
@@ -95,6 +95,10 @@ export async function POST(req) {
       status: 201,
     });
   } catch (error) {
+
+    console.log("======> ", error);
+    
+
     return NextResponse.json({
       message: "اینترنت خود را چک کنید",
       status: 500,
